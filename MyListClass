@@ -1,0 +1,93 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mylist;
+
+/**
+ *
+ * @author Nick
+ */
+
+public class MyLinkdList<AnyType> {
+   public Node head;
+   public Node tail;
+   
+   public MyLinkdList() {
+   }
+   /**
+    * My method made to insert a node into a linked 
+    * list into the first position of the list.
+    * @param x is our Node being inserted into the list.
+    */
+   void myPush(AnyType x) {
+       Node newNode = new Node(x);//initializes a new node to push into the list
+       if (head == null) {   // checks if the linked list is empty
+           head = newNode;   // assigns new node to the head of the linked list
+           tail = head.next; // assigns the tail to next of head
+       } else {              // if the list is not empty...
+           newNode.next = head; //assign newnode next to the head of the list 
+           head = newNode;      // and re assigns head of list to the new node
+       }
+   }
+   /**
+    * My method that ejects the first item of the linked list 
+    * @return the first item of the linked list
+    */
+   AnyType myPop() {
+       AnyType t = null;//initializes an Anytype t that we will return...
+       if (head == null)//checks the first item of the list to see if its empty.
+           return t; // if the list is empty return our Anytype t which is null.
+       else {           // if the first item isn't null... 
+           t = head.info;   // we grab the info from the head node...
+           head = head.next;// and we reassign head to head.next and by doing                    
+       }                    // we are also deleting the previous node head
+       return t;
+   }
+   
+   /**
+    * My method that injects a new node x into the end of our list 
+    * @param x 
+    */
+   void myInject(AnyType x) {
+       Node temp = head;
+       Node newNode = new Node(x);//initializes a new node to push into the list
+       if (head == null) {        //if our list is empty then...
+           head = newNode;        //...insert it at the beggining of the list
+       }
+       if (head != null && tail == null){ // if there is only 1 itme in the list
+           head.next = newNode;           // then assign the node after Head
+       }
+       while (temp != null && tail != null){ // if there is more than 2 items
+           temp = temp.next;            // traverse the list till you get to 
+           tail = tail.next;            // the end of the list
+       }
+       if(tail == null){      //When you exit the loop, you have reached the end
+           tail = newNode;    //Now assign the now null tail to the new node
+           temp.next = tail;//and assign the new end of the list to the new tail
+       }
+   }
+   
+   /**
+    * A simple Constructor to define the Nodes in our list
+    */
+   private class Node {
+       private AnyType info; // defined in the problem
+       private Node next; // link to next node
+       private Node(AnyType x) { //defines that nodes can have an Anytype object
+           this(x, null); // creates the node with info and a pointer to next
+       } 
+       
+       /**
+        * a simple definition of a single node 
+        * that we will use in our linked list
+        * @param x is our info portion of the node
+        * @param nextNode is our pointer to the nextNode in the list
+        */
+       private Node(AnyType x, Node nextNode) {
+           info = x;
+           next = nextNode;
+       }  
+   }
+}
